@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Kestrel__Port": "9005",
+        "ConnectionStrings__PostgresWrite": "Host=localhost;Port=5432;Database=balance_control;Username=balance_app;Password=balance_app;",
+        "ConnectionStrings__PostgresRead": "Host=localhost;Port=5432;Database=balance_control;Username=balance_app;Password=balance_app;"
+      },
+      "dotnetRunMessages": true
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}

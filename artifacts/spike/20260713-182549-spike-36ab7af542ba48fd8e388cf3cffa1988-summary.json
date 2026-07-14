@@ -1,0 +1,44 @@
+{
+  "batchId": "spike-36ab7af542ba48fd8e388cf3cffa1988",
+  "baseUrl": "http://localhost:9005",
+  "accounts": [
+    "spike-36ab7af542ba48fd8e388cf3cffa1988-account-a",
+    "spike-36ab7af542ba48fd8e388cf3cffa1988-account-b",
+    "spike-36ab7af542ba48fd8e388cf3cffa1988-account-c"
+  ],
+  "uniqueAdjustments": 900,
+  "seedAdjustments": 3,
+  "balanceQueries": 210,
+  "intentionalReplays": 90,
+  "concurrency": 60,
+  "requests": 1203,
+  "durationSeconds": 5.64,
+  "throughput": 213.14,
+  "unexpectedFailures": 0,
+  "p95Ms": 40,
+  "p99Ms": 70,
+  "assertions": "passed",
+  "finalAccounts": [
+    {
+      "account": "spike-36ab7af542ba48fd8e388cf3cffa1988-account-a",
+      "expectedBalance": 11750.0,
+      "actualBalance": 11750.0,
+      "expectedMovements": 301,
+      "actualMovements": 301
+    },
+    {
+      "account": "spike-36ab7af542ba48fd8e388cf3cffa1988-account-b",
+      "expectedBalance": 11750.0,
+      "actualBalance": 11750.0,
+      "expectedMovements": 301,
+      "actualMovements": 301
+    },
+    {
+      "account": "spike-36ab7af542ba48fd8e388cf3cffa1988-account-c",
+      "expectedBalance": 11750.0,
+      "actualBalance": 11750.0,
+      "expectedMovements": 301,
+      "actualMovements": 301
+    }
+  ]
+}

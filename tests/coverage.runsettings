@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <Format>opencover</Format>
+          <Include>[BalanceControl.Api]*,[BalanceControl.Application]*,[BalanceControl.Domain]*,[BalanceControl.Infrastructure]*</Include>
+          <Exclude>[*.Tests]*,[BalanceControl.Observability]*,[BalanceControl.ServiceDefaults]*</Exclude>
+          <ExcludeByFile>**/obj/**/*.cs,**/Migrations/*.cs,**/Program.cs,**/Properties/*.cs,**/Entities/*.cs,**/Dtos/*.cs,**/Base/*.cs,**/Contracts/*.cs,**/Mappers/*.cs</ExcludeByFile>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

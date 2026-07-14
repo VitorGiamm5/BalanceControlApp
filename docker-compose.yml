@@ -1,0 +1,115 @@
+name: BalanceControl-local
+
+services:
+  postgres:
+    container_name: BalanceControl-local-postgres
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: balance_control
+      POSTGRES_USER: balance_app
+      POSTGRES_PASSWORD: balance_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - balance-control-local
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U balance_app -d balance_control"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    container_name: BalanceControl-local-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+      seq:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Kestrel__Port: 9005
+      ConnectionStrings__PostgresWrite: Host=postgres;Port=5432;Database=balance_control;Username=balance_app;Password=balance_app;
+      ConnectionStrings__PostgresRead: Host=postgres;Port=5432;Database=balance_control;Username=balance_app;Password=balance_app;
+      DatabaseSettings__RunMigrationsOnStartup: "true"
+      ApiCors__AllowedOrigins: "*"
+      Jwt__Issuer: BalanceControl
+      Jwt__Audience: BalanceControl.Api
+      Jwt__SigningKey: balance-control-local-signing-key-32-bytes-minimum
+      Jwt__ExpirationMinutes: "60"
+      Jwt__ClientId: balance-client
+      Jwt__ClientSecret: balance-secret
+      SEQ_URL: http://seq:5341
+      OTEL_LOGS_EXPORTER: none
+      OTEL_METRICS_EXPORTER: none
+      OTEL_TRACES_EXPORTER: none
+    ports:
+      - "9005:9005"
+    networks:
+      - balance-control-local
+
+  seq:
+    container_name: BalanceControl-local-seq
+    image: datalust/seq:2025.2
+    environment:
+      ACCEPT_EULA: "Y"
+      SEQ_FIRSTRUN_NOAUTHENTICATION: "true"
+    ports:
+      - "8081:80"
+      - "5341:5341"
+    volumes:
+      - seq-data:/data
+    networks:
+      - balance-control-local
+
+  prometheus:
+    container_name: BalanceControl-local-prometheus
+    image: prom/prometheus:v3.5.0
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./deploy/observability/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    depends_on:
+      - api
+    networks:
+      - balance-control-local
+
+  grafana:
+    container_name: BalanceControl-local-grafana
+    image: grafana/grafana:12.1.1
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_USERS_DEFAULT_THEME: light
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./deploy/observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deploy/observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+    networks:
+      - balance-control-local
+
+volumes:
+  postgres-data:
+    name: BalanceControl-local-postgres-data
+  seq-data:
+    name: BalanceControl-local-seq-data
+  prometheus-data:
+    name: BalanceControl-local-prometheus-data
+  grafana-data:
+    name: BalanceControl-local-grafana-data
+
+networks:
+  balance-control-local:
+    name: BalanceControl-local-network

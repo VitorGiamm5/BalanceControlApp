@@ -1,0 +1,44 @@
+{
+  "batchId": "spike-ee9f0d7d473540daade4c2e6f645ac83",
+  "baseUrl": "http://localhost:9005",
+  "accounts": [
+    "spike-ee9f0d7d473540daade4c2e6f645ac83-account-a",
+    "spike-ee9f0d7d473540daade4c2e6f645ac83-account-b",
+    "spike-ee9f0d7d473540daade4c2e6f645ac83-account-c"
+  ],
+  "uniqueAdjustments": 90,
+  "seedAdjustments": 3,
+  "balanceQueries": 21,
+  "intentionalReplays": 9,
+  "concurrency": 15,
+  "requests": 123,
+  "durationSeconds": 1.29,
+  "throughput": 95.65,
+  "unexpectedFailures": 0,
+  "p95Ms": 72,
+  "p99Ms": 107,
+  "assertions": "passed",
+  "finalAccounts": [
+    {
+      "account": "spike-ee9f0d7d473540daade4c2e6f645ac83-account-a",
+      "expectedBalance": 10175.0,
+      "actualBalance": 10175.0,
+      "expectedMovements": 31,
+      "actualMovements": 31
+    },
+    {
+      "account": "spike-ee9f0d7d473540daade4c2e6f645ac83-account-b",
+      "expectedBalance": 10175.0,
+      "actualBalance": 10175.0,
+      "expectedMovements": 31,
+      "actualMovements": 31
+    },
+    {
+      "account": "spike-ee9f0d7d473540daade4c2e6f645ac83-account-c",
+      "expectedBalance": 10175.0,
+      "actualBalance": 10175.0,
+      "expectedMovements": 31,
+      "actualMovements": 31
+    }
+  ]
+}

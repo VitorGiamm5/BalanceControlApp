@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BalanceControl.Api/BalanceControl.Api.csproj" />
+    <Project Path="src/BalanceControl.Application/BalanceControl.Application.csproj" />
+    <Project Path="src/BalanceControl.Domain/BalanceControl.Domain.csproj" />
+    <Project Path="src/BalanceControl.Infrastructure/BalanceControl.Infrastructure.csproj" />
+    <Project Path="src/BalanceControl.Observability/BalanceControl.Observability.csproj" />
+    <Project Path="src/BalanceControl.ServiceDefaults/BalanceControl.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BalanceControl.FunctionalTests/BalanceControl.FunctionalTests.csproj" />
+    <Project Path="tests/BalanceControl.IntegrationTests/BalanceControl.IntegrationTests.csproj" />
+    <Project Path="tests/BalanceControl.UnitTests/BalanceControl.UnitTests.csproj" />
+  </Folder>
+</Solution>
